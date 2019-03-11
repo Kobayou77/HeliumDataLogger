@@ -1,0 +1,92 @@
+# kivy 1.8.0
+
+<MainLogger>:
+    magnet_spinner: magnet_spinner
+
+    FloatLayout:
+
+        Button:
+            text: str("Helium Data Logger")
+            font_size: 25
+            size_hint: 1, 0.15
+            pos_hint: {'x':0.0 , 'top':1}
+            state: 'down'
+            disabled: True
+
+        MagnetSpinner:
+            id: magnet_spinner
+            font_size: 30
+            size_hint: 0.50, 0.15
+            pos_hint: {'x':0.0 , 'top':0.85}
+            disabled: root.is_logger_active
+
+        Button:
+            text: str(root.nowtime)
+            font_size: 20
+            size_hint: 0.35, 0.15
+            pos_hint: {'x':0.5 , 'top':0.85}
+            on_press: root.switch_control_disable()
+
+        Button:
+            text: str("exit")
+            font_size: 20
+            size_hint: 0.15, 0.15
+            pos_hint: {'x':0.85, 'top':0.85}
+            disabled: root.is_control_disable
+            on_press: root.endapp()
+
+        Button:
+            text: str(root.leftPercent_st) if root.is_area1_percent else str(root.totalflow_st)
+            font_size: 100
+            size_hint: 0.60, 0.45
+            pos_hint: {'x':0.0 , 'y':0.25}
+            on_press: root.switch_area1()
+
+        Button:
+            text: str(root.nowflow_st)
+            font_size: 20
+            size_hint: 0.40, 0.225
+            pos_hint: {'x':0.6 , 'y':0.475}
+
+        Button:
+            text: str(root.leftHelium_st) if root.is_area3_left else str(root.startTime)
+            font_size: 20 if root.is_area3_left else 15
+            size_hint: 0.40, 0.225
+            pos_hint: {'x':0.6 , 'y':0.25}
+            on_press: root.switch_area3()
+
+
+        Button:
+            text: '-10%'
+            size_hint: 0.25, 0.125
+            pos_hint: {'x':0.0 , 'y':0.125}
+            disabled: True if root.is_logger_active else False
+            on_press: root.minus10p()
+
+        Button:
+            text: '-1%'
+            size_hint: 0.25, 0.125
+            pos_hint: {'x':0.25 , 'y':0.125}
+            disabled: True if root.is_logger_active else False
+            on_press: root.minus1p()
+
+        Button:
+            text: '-0.1%'
+            size_hint: 0.25, 0.125
+            pos_hint: {'x':0.0 , 'y':0.0}
+            disabled: True if root.is_logger_active else False
+            on_press: root.minusfine()
+
+        Button:
+            text: 'reset 100%'
+            size_hint: 0.25, 0.125
+            pos_hint: {'x':0.25 , 'y':0.0}
+            disabled: True if root.is_logger_active else False
+            on_press: root.resetp()
+
+        Button:
+            text: 'STOP' if root.is_logger_active else 'Logger Start'
+            size_hint: 0.50, 0.25
+            pos_hint: {'x':0.5 , 'y':0.0}
+            on_press: root.switch_logger()
+            disabled: root.is_control_disable
